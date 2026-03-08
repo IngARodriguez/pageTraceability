@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>212 Club — Pedidos</title>
+  <meta name="description" content="Realiza tu pedido en 212 Club" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="bg-grain"></div>
+  <div class="bg-glow"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-number">212</span>
+        <span class="logo-word">CLUB</span>
+      </div>
+      <div class="header-tag">Pedidos a Mesa</div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="form-wrap">
+
+      <div class="form-intro">
+        <h1 class="form-title">Tu Pedido</h1>
+        <p class="form-desc">Cuéntanos qué deseas y lo llevamos a tu mesa.</p>
+      </div>
+
+      <form class="order-form" id="orderForm" novalidate>
+
+        <!-- 01 — Cliente & Mesa -->
+        <section class="card">
+          <h2 class="card-title">Mesa &amp; Cliente</h2>
+          <div class="fields-row">
+
+            <div class="field">
+              <label for="tableNumber">Mesa <span class="req">*</span></label>
+              <input type="number" id="tableNumber" name="tableNumber" placeholder="Nº de mesa" min="1" max="999"
+                required />
+              <span class="err" id="tableNumberError"></span>
+            </div>
+
+            <div class="field">
+              <label for="zone">Área</label>
+              <div class="select-wrap">
+                <select id="zone" name="zone">
+                  <option value="">Seleccionar…</option>
+                  <option value="vip_main">VIP Principal</option>
+                  <option value="vip_privado">VIP Privado</option>
+                  <option value="terraza">Terraza</option>
+                  <option value="pista">Pista de baile</option>
+                  <option value="barra">Barra</option>
+                  <option value="lounge">Lounge</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="clientName">Nombre <span class="req">*</span></label>
+              <input type="text" id="clientName" name="clientName" placeholder="Tu nombre" required maxlength="80" />
+              <span class="err" id="clientNameError"></span>
+            </div>
+
+            <div class="field full">
+              <label for="clientId">Número de Cédula</label>
+              <input type="text" id="clientId" name="clientId" placeholder="Ej. 12345678" maxlength="20" />
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 02 — Botellas -->
+        <section class="card">
+          <h2 class="card-title">Botellas</h2>
+
+          <div id="bottleContainer">
+            <div class="bottle-row" data-index="0">
+              <div class="field bottle-product-field">
+                <label>Producto <span class="req">*</span></label>
+                <div class="select-wrap">
+                  <select class="bottle-product" required>
+                    <option value="">Seleccionar…</option>
+                    <optgroup label="Whisky">
+                      <option value="johnnie_black" data-price="85">Johnnie Walker Black — $85</option>
+                      <option value="johnnie_blue" data-price="280">Johnnie Walker Blue — $280</option>
+                      <option value="jack_daniels" data-price="70">Jack Daniel's — $70</option>
+                      <option value="chivas_12" data-price="90">Chivas Regal 12 — $90</option>
+                      <option value="chivas_18" data-price="160">Chivas Regal 18 — $160</option>
+                    </optgroup>
+                    <optgroup label="Vodka">
+                      <option value="grey_goose" data-price="110">Grey Goose — $110</option>
+                      <option value="absolut" data-price="65">Absolut — $65</option>
+                      <option value="ciroc" data-price="120">Cîroc — $120</option>
+                    </optgroup>
+                    <optgroup label="Ron">
+                      <option value="bacardi" data-price="60">Bacardí Premium — $60</option>
+                      <option value="diplomatico" data-price="130">Diplomático — $130</option>
+                      <option value="zacapa" data-price="150">Ron Zacapa 23 — $150</option>
+                    </optgroup>
+                    <optgroup label="Champagne">
+                      <option value="moet" data-price="180">Moët &amp; Chandon — $180</option>
+                      <option value="veuve" data-price="220">Veuve Clicquot — $220</option>
+                      <option value="dom_perignon" data-price="400">Dom Pérignon — $400</option>
+                    </optgroup>
+                    <optgroup label="Tequila">
+                      <option value="patron" data-price="95">Patrón Silver — $95</option>
+                      <option value="don_julio" data-price="210">Don Julio 1942 — $210</option>
+                    </optgroup>
+                    <option value="otro" data-price="0">Otro (indicar en notas)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field bottle-qty-field">
+                <label>Cantidad</label>
+                <div class="qty-control">
+                  <button type="button" class="qty-btn qty-minus">−</button>
+                  <input type="number" class="bottle-qty" value="1" min="1" max="20" readonly />
+                  <button type="button" class="qty-btn qty-plus">+</button>
+                </div>
+              </div>
+              <button type="button" class="remove-row-btn" title="Quitar" style="display:none">✕</button>
+            </div>
+          </div>
+
+          <button type="button" class="add-row-btn" id="addBottleBtn">+ Agregar botella</button>
+        </section>
+
+        <!-- 03 — Mezcladores -->
+        <section class="card">
+          <h2 class="card-title">Mezcladores</h2>
+          <div class="chip-group">
+            <label class="chip"><input type="checkbox" name="mixers" value="coca_cola" /><span>Coca-Cola</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="soda" /><span>Agua Soda</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="agua_mineral" /><span>Agua
+                Mineral</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="sprite" /><span>Sprite</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="jugo_naranja" /><span>Jugo
+                Naranja</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="jugo_piña" /><span>Jugo Piña</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="red_bull" /><span>Red Bull</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="hielo" /><span>Hielo extra</span></label>
+            <label class="chip"><input type="checkbox" name="mixers" value="limon" /><span>Limón</span></label>
+          </div>
+        </section>
+
+        <!-- 05 — Pago -->
+        <section class="card">
+          <h2 class="card-title">Pago</h2>
+          <div class="fields-row">
+
+            <div class="field">
+              <label for="paymentMethod">Método</label>
+              <div class="select-wrap">
+                <select id="paymentMethod" name="paymentMethod">
+                  <option value="">Seleccionar…</option>
+                  <option value="efectivo">Efectivo</option>
+                  <option value="tarjeta_credito">Tarjeta de Crédito</option>
+                  <option value="tarjeta_debito">Tarjeta de Débito</option>
+                  <option value="transferencia">Transferencia</option>
+                  <option value="cortesia">Cortesía</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Total Estimado</label>
+              <div class="total-display" id="totalDisplay">$0.00</div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- Acciones -->
+        <div class="form-actions">
+          <button type="reset" class="btn-secondary" id="resetBtn">Limpiar</button>
+          <button type="submit" class="btn-primary" id="submitBtn">Enviar Pedido</button>
+        </div>
+
+      </form>
+
+      <!-- Toast -->
+      <div class="toast" id="successToast">
+        <span class="toast-check">✓</span>
+        <div>
+          <strong>¡Pedido enviado!</strong>
+          <p>Pronto estará en tu mesa.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
